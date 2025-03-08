@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { ref } from 'vue'
+import type { Character } from '../types/Character.ts'
 
-const characters = ref([])
+const characters = ref<Character[]>([])
 
 const fetchData = async () => {
   const res = await fetch('https://rickandmortyapi.com/api/character')
   const data = await res.json()
   characters.value = data.results
-  console.log(characters)
+  console.log(data.results)
 }
 
 onMounted(() => {
@@ -18,11 +19,17 @@ onMounted(() => {
 
 <template>
   <main class="min-h-screen flex flex-col justify-center items-center gap-8 p-6">
-    <header>
+    <header id="header">
       <h1 class="text-center text-[3rem]">Rick and Morty Api</h1>
     </header>
 
-    <section class="flex flex-wrap justify-center gap-8">
+    <section id="pagination">
+      <button></button>
+      <span> {{}}</span>
+      <button></button>
+    </section>
+
+    <section id="characters-container" class="flex flex-wrap justify-center gap-8">
       <article
         class="rounded-lg overflow-hidden"
         v-for="character in characters"

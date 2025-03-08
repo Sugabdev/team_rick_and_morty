@@ -18,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="min-h-screen flex flex-col justify-center items-center gap-8 p-6">
+  <main class="min-h-screen flex flex-col justify-center items-center gap-2 p-6">
     <header id="header">
       <h1 class="text-center text-[3rem]">Rick and Morty Api</h1>
     </header>

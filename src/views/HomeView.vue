@@ -36,9 +36,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="min-h-screen flex flex-col justify-center items-center gap-2 p-6">
+  <main class="min-h-screen flex flex-col justify-center items-center gap-6 p-6 md:gap-12 md:p-12">
     <header id="header">
-      <h1 class="text-center text-[3rem]">Rick and Morty Api</h1>
+      <h1 class="text-center text-[2rem]">Rick and Morty Api</h1>
     </header>
 
     <section id="pagination">
@@ -61,14 +61,16 @@ onMounted(() => {
       </button>
     </section>
 
-    <section id="characters-container" class="flex flex-wrap justify-center gap-8">
+    <section id="characters-container" class="flex flex-wrap justify-center gap-12">
       <article
-        class="rounded-lg overflow-hidden"
+        class="flex flex-col rounded-lg overflow-hidden w-[250px] hover:transform hover:scale-110 transition-transform duration-300"
         v-for="character in characters"
         :key="character.id"
       >
         <img :src="character.image" :alt="character.name" />
-        <div class="w-full text-center p-4 bg-gray-100 text-gray-800 text-lg font-bold">
+        <div
+          class="flex flex-col items-center justify-center w-full h-[40%] text-center p-4 bg-gray-100 text-gray-800 text-lg font-bold"
+        >
           <h2>{{ character.name }}</h2>
         </div>
       </article>

@@ -7,6 +7,7 @@ const characters = ref<Character[]>([])
 const page = ref<number>(1)
 const nextPageStatus = ref<boolean>()
 const prevPageStatus = ref<boolean>()
+const inputQuery = ref<string>('')
 
 const loadCharacters = async () => {
   const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page.value}`)
@@ -16,6 +17,13 @@ const loadCharacters = async () => {
   nextPageStatus.value = data.info.next
 
   characters.value = data.results
+}
+
+const searchCharacters = () => {
+  characters.value.filter((character) => {
+    return character.name.toLowerCase().includes(inputQuery.value.toLowerCase())
+  })
+  loadCharacters()
 }
 
 const nextPage = () => {
@@ -58,6 +66,16 @@ onMounted(() => {
         class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         {{ '->' }}
+      </button>
+    </section>
+
+    <section id="filter" class="flex flex-row overflow-hidden rounded-lg border border-gray-400">
+      <input v-model="inputQuery" type="text" placeholder="Type any character . . ." class="p-2" />
+      <button
+        @click="searchCharacters"
+        class="bg-cyan-600 px-2 hover:bg-cyan-700 hover:duration-100"
+      >
+        search
       </button>
     </section>
 

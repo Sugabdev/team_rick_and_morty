@@ -5,21 +5,27 @@ import type { Character } from '../types/Character.ts'
 
 const characters = ref<Character[]>([])
 const page = ref<number>(1)
+const nextPageStatus = ref<boolean>()
+const prevPageStatus = ref<boolean>()
 
 const loadCharacters = async () => {
   const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page.value}`)
   const data = await res.json()
+
+  prevPageStatus.value = data.info.prev
+  nextPageStatus.value = data.info.next
+
   characters.value = data.results
-  console.log(data.results)
 }
 
 const nextPage = () => {
+  if (!nextPageStatus.value) return
   page.value++
   loadCharacters()
 }
 
 const prevPage = () => {
-  if (page.value === 1) return
+  if (!prevPageStatus.value) return
   page.value--
   loadCharacters()
 }
